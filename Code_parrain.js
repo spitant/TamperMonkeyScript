@@ -2,14 +2,12 @@
 // @name        Code parrain
 // @description Code parrain refree all
 // @author      spitant
-// @encoding    utf-8
 // @match       https://code-parrainage.net/moncompte
 // @grant       GM_addStyle
 // @version     1.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
-// @run-at      document-start
 // @namespace   https://github.com/spitant/TamperMonkeyScript/
 // ==/UserScript==
 

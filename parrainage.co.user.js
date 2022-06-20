@@ -1,10 +1,14 @@
-//==UserScript==
+// ==UserScript==
 // @name        parrainage.co
 // @description parrainage.co
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
 // @version     0.1
-//==/UserScript==
+// @homepage    https://github.com/spitant/TamperMonkeyScript/
+// @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
+// @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
+// @namespace   https://github.com/spitant/TamperMonkeyScript/
+// ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and
     positioned with CSS.

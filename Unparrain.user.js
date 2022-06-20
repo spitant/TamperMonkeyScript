@@ -1,10 +1,14 @@
-//==UserScript==
+// ==UserScript==
 // @name        Unparrain
 // @description Unparrain
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
 // @version     0.2
-//==/UserScript==
+// @homepage    https://github.com/spitant/TamperMonkeyScript/
+// @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
+// @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
+// @namespace   https://github.com/spitant/TamperMonkeyScript/
+// ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and
     positioned with CSS.

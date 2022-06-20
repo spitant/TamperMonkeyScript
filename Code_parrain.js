@@ -10,6 +10,7 @@
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @run-at      document-start
+// @namespace   https://github.com/spitant/TamperMonkeyScript/
 // ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and

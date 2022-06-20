@@ -4,6 +4,8 @@
 // @match       https://code-parrainage.net/moncompte
 // @grant       GM_addStyle
 // @version     0.3
+// @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
+// @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 //==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and

@@ -5,7 +5,7 @@
 // @encoding    utf-8
 // @match       https://code-parrainage.net/moncompte
 // @grant       GM_addStyle
-// @version     0.3
+// @version     1.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
@@ -69,19 +69,4 @@ GM_addStyle ( `
         color:                  blue;
         background:             white;
     }
-` );// ==UserScript==
-// @name         New Userscript
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://code-parrainage.net/moncompte
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=code-parrainage.net
-// @grant        none
-// ==/UserScript==
-
-(function() {
-    'use strict';
-
-    // Your code here...
-})();
+` );

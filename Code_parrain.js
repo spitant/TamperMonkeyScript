@@ -1,4 +1,4 @@
-//==UserScript==
+// ==UserScript==
 // @name        Code parrain
 // @description Code parrain refree all
 // @author      spitant
@@ -9,7 +9,7 @@
 // @homepage https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
-//==/UserScript==
+// ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and
     positioned with CSS.

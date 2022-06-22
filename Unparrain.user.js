@@ -3,7 +3,7 @@
 // @description Unparrain
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     0.2
+// @version     0.3
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
@@ -77,3 +77,6 @@ GM_addStyle ( `
         background:             white;
     }
 ` );
+const btn = document.getElementById('myButton');
+var elements = document.getElementsByClassName("btn-group");
+btn.textContent = 'Actualiser 0/' + elements.length;

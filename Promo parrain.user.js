@@ -61,3 +61,6 @@ GM_addStyle ( `
         background:             white;
     }
 ` );
+const btn = document.getElementById('myButton');
+var elements = document.getElementsByClassName("pboutonv");
+btn.textContent = 'Actualiser 0/' + elements.length;

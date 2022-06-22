@@ -3,7 +3,7 @@
 // @description parrainage.co
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     0.1
+// @version     0.2
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
@@ -25,9 +25,10 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+const elements = [78340, 74480, 74481, 74482, 74616, 74771, 74473, 74483, 74484, 74485, 74486, 74487, 74658, 74817, 74488, 74867, 75040, 74868, 74763, 74869, 74718, 75076, 75098, 75366, 75367, 74719, 74871, 75198, 75622, 75223, 76075, 75669, 75672, 74474, 76116, 76121, 75936, 76226, 76233, 74475, 76316, 76251, 76369, 76287, 76414, 76576, 76451, 76602, 76455, 76607, 76635, 74476, 76662, 74477, 76835, 76752, 76867, 74478, 74471, 74472, 77371, 74479, 77514];
+
 function ButtonClickAction (zEvent) {
     const btn = document.getElementById('myButton');
-    var elements = [78340, 74480, 74481, 74482, 74616, 74771, 74473, 74483, 74484, 74485, 74486, 74487, 74658, 74817, 74488, 74867, 75040, 74868, 74763, 74869, 74718, 75076, 75098, 75366, 75367, 74719, 74871, 75198, 75622, 75223, 76075, 75669, 75672, 74474, 76116, 76121, 75936, 76226, 76233, 74475, 76316, 76251, 76369, 76287, 76414, 76576, 76451, 76602, 76455, 76607, 76635, 74476, 76662, 74477, 76835, 76752, 76867, 74478, 74471, 74472, 77371, 74479, 77514];
     btn.textContent = 'Actualiser 0/' + elements.length;
     var count = 0;
     var tasks = ["offers/boost/", "vote/"];
@@ -66,19 +67,7 @@ GM_addStyle ( `
         color:                  blue;
         background:             white;
     }
-` );// ==UserScript==
-// @name         New Userscript
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        https://code-parrainage.net/moncompte
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=code-parrainage.net
-// @grant        none
-// ==/UserScript==
+` );
 
-(function() {
-    'use strict';
-
-    // Your code here...
-})();
+const btn = document.getElementById('myButton');
+btn.textContent = 'Actualiser 0/' + elements.length;

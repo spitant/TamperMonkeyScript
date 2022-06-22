@@ -3,7 +3,7 @@
 // @description Promo parrain
 // @match       https://www.promo-parrain.com/membres/annonces
 // @grant       GM_addStyle
-// @version     0.2
+// @version     0.3
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js

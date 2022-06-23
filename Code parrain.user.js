@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://code-parrainage.net/moncompte
 // @grant       GM_addStyle
-// @version     1.0.1
+// @version     1.1.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
@@ -26,23 +26,38 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
-function ButtonClickAction (zEvent) {
+function setLabelButton(count){
+    const btn = document.getElementById('myButton');
+    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
+}
+
+function getAnnonce(){
+    var arr = []
     const btn = document.getElementById('myButton');
     var elements = document.getElementsByTagName('a');
-    btn.textContent = 'Actualiser 0/' + elements.length;
-    var count = 0;
     for (const element of elements) {
         let action = element.getAttribute("href");
         if (action != null && action.startsWith("up/")) {
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://code-parrainage.net/" + action);
-            xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            console.log("Send " + action);
-            xhr.send();
+            arr.push(element);
         }
+    }
+    return arr;
+}
+
+function ButtonClickAction (zEvent) {
+    var elements = getAnnonce();
+    var count = 0;
+    setLabelButton(count);
+    for (const element of elements) {
+        let action = element.getAttribute("href");
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://code-parrainage.net/" + action);
+        xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        console.log("Send " + action);
+        xhr.send();
         count++;
-        btn.textContent = 'Actualiser '+ count + '/' + elements.length;
+        setLabelButton(count);
     }
 }
 
@@ -68,6 +83,5 @@ GM_addStyle ( `
         background:             white;
     }
 ` );
-const btn = document.getElementById('myButton');
-var elements = document.getElementsByTagName('a');
-btn.textContent = 'Actualiser 0/' + elements.length;
+
+setLabelButton(0);

@@ -3,7 +3,7 @@
 // @description Unparrain
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     1.1.0
+// @version     1.1.1
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
@@ -62,7 +62,7 @@ function getAnnonce(){
   for (const element of elements) {
       let action = element.getAttribute("action");
       if (action != null && action.includes("/front")) {
-          arr.push(element);
+          arr.push(action);
       }
   }
   return arr;
@@ -77,7 +77,7 @@ async function ButtonClickAction (zEvent) {
     setLabelButton(count);
     for (const element of elements) {
           let xhr = new XMLHttpRequest();
-          xhr.open("POST", "	http://www.unparrain.fr" + action);
+          xhr.open("POST", "	http://www.unparrain.fr" + element);
           xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
           xhr.send();

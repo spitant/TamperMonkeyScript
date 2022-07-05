@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     1.0.0
+// @version     1.1.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
@@ -26,20 +26,30 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+/**
+ * Get the list of annonces
+ * @return The list of annonces
+ */
 function getAnnonce(){
     var arr = []
     const btn = document.getElementById('myButton');
     return document.getElementsByClassName('announcementVisibility');
 }
-const annonces = getAnnonce();
 
+/**
+ * Set label count on added button
+ * @param {int} count Current iteration
+ */
 function setLabelButton(count){
     const btn = document.getElementById('myButton');
-    btn.textContent = 'Actualiser '+ count + '/' + annonces.length;
+    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
 }
 
+/**
+ * Handler for added button
+ */
 function ButtonClickAction (zEvent) {
-    var elements = annonces;
+    var elements = getAnnonce();
     var count = 0;
     setLabelButton(count);
     for (const element of elements) {

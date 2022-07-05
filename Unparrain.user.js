@@ -3,7 +3,7 @@
 // @description Unparrain
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     0.3
+// @version     1.1.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
@@ -25,33 +25,65 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+/**
+ * Set label count on added button
+ * @param {int} count Current iteration
+ */
+function setLabelButton(count){
+    const btn = document.getElementById('myButton');
+    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
+}
+
+/**
+ * Get random int between min and max
+ * @param {int} min: minimum value
+ * @param {int} max: maximum value
+ * @return Random value
+ */
 function getRandomInt(min, max) {
   return min + Math.floor(Math.random() * (max-min));
 }
 
+/**
+ * sleep
+ * @param {int} milliseconds number of milliseconds to sleep
+ */
 function sleep(milliseconds) {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
-async function ButtonClickAction (zEvent) {
-    const btn = document.getElementById('myButton');
-    var elements = document.getElementsByClassName("btn-group");
-    btn.textContent = 'Actualiser 0/' + elements.length;
-    var count = 0;
-    for (const element of elements) {
-        let action = element.getAttribute("action");
-        if (action != null && action.includes("/front")){
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "	http://www.unparrain.fr" + action);
+/**
+ * Get the list of annonces
+ * @return The list of annonces
+ */
+function getAnnonce(){
+  var arr = []
+  var elements = document.getElementsByClassName("btn-group");
+  for (const element of elements) {
+      let action = element.getAttribute("action");
+      if (action != null && action.includes("/front")) {
+          arr.push(element);
+      }
+  }
+  return arr;
+}
 
-            xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            console.log("Send " + action);
-            xhr.send();
-            await sleep(getRandomInt(3500, 6000))
-        }
+/**
+ * Handler for added button
+ */
+async function ButtonClickAction (zEvent) {
+    var elements = getAnnonce();
+    var count = 0;
+    setLabelButton(count);
+    for (const element of elements) {
+          let xhr = new XMLHttpRequest();
+          xhr.open("POST", "	http://www.unparrain.fr" + action);
+          xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.send();
+          await sleep(getRandomInt(3500, 6000))
         count++;
-        btn.textContent = 'Actualiser '+ count + '/' + elements.length;
+        setLabelButton(count);
     }
 }
 
@@ -77,6 +109,4 @@ GM_addStyle ( `
         background:             white;
     }
 ` );
-const btn = document.getElementById('myButton');
-var elements = document.getElementsByClassName("btn-group");
-btn.textContent = 'Actualiser 0/' + elements.length;
+setLabelButton(0);

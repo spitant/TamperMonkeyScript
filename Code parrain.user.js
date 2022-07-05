@@ -26,14 +26,21 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+/**
+ * Set label count on added button
+ * @param {int} count Current iteration
+ */
 function setLabelButton(count){
     const btn = document.getElementById('myButton');
     btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
 }
 
+/**
+ * Get the list of annonces
+ * @return The list of annonces
+ */
 function getAnnonce(){
     var arr = []
-    const btn = document.getElementById('myButton');
     var elements = document.getElementsByTagName('a');
     for (const element of elements) {
         let action = element.getAttribute("href");
@@ -44,6 +51,9 @@ function getAnnonce(){
     return arr;
 }
 
+/**
+ * Handler for added button
+ */
 function ButtonClickAction (zEvent) {
     var elements = getAnnonce();
     var count = 0;

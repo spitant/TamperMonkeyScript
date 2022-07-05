@@ -3,7 +3,7 @@
 // @description Promo parrain
 // @match       https://www.promo-parrain.com/membres/annonces
 // @grant       GM_addStyle
-// @version     0.3
+// @version     1.1.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
@@ -25,17 +25,35 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
-function ButtonClickAction (zEvent) {
+/**
+ * Set label count on added button
+ * @param {int} count Current iteration
+ */
+function setLabelButton(count){
     const btn = document.getElementById('myButton');
+    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
+}
+
+/**
+ * Get the list of annonces
+ * @return The list of annonces
+ */
+function getAnnonce(){
+    return document.getElementsByClassName("pboutonv");
+}
+
+/**
+ * Handler for added button
+ */
+function ButtonClickAction (zEvent) {
     const userID = 686
-    var elements = document.getElementsByClassName("pboutonv");
-    btn.textContent = 'Actualiser 0/' + elements.length;
     var count = 0;
-    for (const element of elements) {
+    setLabelButton(count)
+    for (const element of getAnnonce()) {
         console.log("element " + element.getAttribute("onclick"));
         element.click()
         count++;
-        btn.textContent = 'Actualiser '+ count + '/' + elements.length;
+        setLabelButton(count)
     }
 }
 
@@ -61,6 +79,5 @@ GM_addStyle ( `
         background:             white;
     }
 ` );
-const btn = document.getElementById('myButton');
-var elements = document.getElementsByClassName("pboutonv");
-btn.textContent = 'Actualiser 0/' + elements.length;
+
+setLabelButton(0);

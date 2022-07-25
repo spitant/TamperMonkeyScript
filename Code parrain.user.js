@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://code-parrainage.net/moncompte
 // @grant       GM_addStyle
-// @version     1.1.0
+// @version     2.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
@@ -40,15 +40,16 @@ function setLabelButton(count){
  * @return The list of annonces
  */
 function getAnnonce(){
-    var arr = []
+    var array = []
     var elements = document.getElementsByTagName('a');
     for (const element of elements) {
         let action = element.getAttribute("href");
         if (action != null && action.startsWith("up/")) {
-            arr.push(element);
+            array.push(element);
         }
     }
-    return arr;
+    const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
+    return shuffled_array;
 }
 
 /**

@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name        Promo parrain
 // @description Promo parrain
+// @author      spitant
 // @match       https://www.promo-parrain.com/membres/annonces
 // @grant       GM_addStyle
-// @version     3.0.0
+// @version     3.0.1
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
@@ -39,7 +40,11 @@ function setLabelButton(count){
  * @return The list of annonces
  */
 function getAnnonce(){
-    const array = document.getElementsByClassName("pboutonv");
+    var array = []
+    var elements = document.getElementsByClassName("pboutonv");
+    for (const element of elements) {
+        array.push(element);
+    }
     const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
     return shuffled_array;
 }

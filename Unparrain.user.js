@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name        Unparrain
 // @description Unparrain
+// @author      spitant
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     3.0.0
+// @version     3.0.1
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js

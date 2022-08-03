@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     3.0.0
+// @version     3.0.1
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
@@ -32,7 +32,11 @@ document.getElementById ("myButton").addEventListener (
  */
 function getAnnonce(){
     const btn = document.getElementById('myButton');
-    const array = document.getElementsByClassName('announcementVisibility');
+    const elements = document.getElementsByClassName('announcementVisibility');
+    var array = []
+    for (const element of elements) {
+        array.push(element);
+    }
     const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
     return shuffled_array;
 }

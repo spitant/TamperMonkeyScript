@@ -3,7 +3,7 @@
 // @description parrainage.co
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     2.0.0
+// @version     3.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js

@@ -3,7 +3,7 @@
 // @description Promo parrain
 // @match       https://www.promo-parrain.com/membres/annonces
 // @grant       GM_addStyle
-// @version     1.1.0
+// @version     3.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Promo parrain.user.js
@@ -39,7 +39,9 @@ function setLabelButton(count){
  * @return The list of annonces
  */
 function getAnnonce(){
-    return document.getElementsByClassName("pboutonv");
+    const array = document.getElementsByClassName("pboutonv");
+    const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
+    return shuffled_array;
 }
 
 /**

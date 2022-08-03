@@ -3,7 +3,7 @@
 // @description Unparrain
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     1.1.1
+// @version     3.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
@@ -41,7 +41,7 @@ function setLabelButton(count){
  * @return Random value
  */
 function getRandomInt(min, max) {
-  return min + Math.floor(Math.random() * (max-min));
+  return min + Math.floor(Math.random() * (max - min));
 }
 
 /**
@@ -65,7 +65,8 @@ function getAnnonce(){
           arr.push(action);
       }
   }
-  return arr;
+  const shuffled_array = arr.sort((a, b) => 0.5 - Math.random());
+  return shuffled_array;
 }
 
 /**
@@ -77,7 +78,7 @@ async function ButtonClickAction (zEvent) {
     setLabelButton(count);
     for (const element of elements) {
           let xhr = new XMLHttpRequest();
-          xhr.open("POST", "	http://www.unparrain.fr" + element);
+          xhr.open("POST", "http://www.unparrain.fr" + element);
           xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
           xhr.send();

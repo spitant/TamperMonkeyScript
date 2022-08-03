@@ -4,10 +4,10 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     1.1.0
+// @version     3.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
-// @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
-// @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Code_parrain.js
+// @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
+// @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @namespace   https://github.com/spitant/TamperMonkeyScript/
 // ==/UserScript==
 
@@ -31,9 +31,10 @@ document.getElementById ("myButton").addEventListener (
  * @return The list of annonces
  */
 function getAnnonce(){
-    var arr = []
     const btn = document.getElementById('myButton');
-    return document.getElementsByClassName('announcementVisibility');
+    const array = document.getElementsByClassName('announcementVisibility');
+    const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
+    return shuffled_array;
 }
 
 /**

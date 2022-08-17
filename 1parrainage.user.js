@@ -67,7 +67,7 @@ function getAnnonce(){
 
 
 function get_parrainage(page) {
-    var links = []
+    var annonces = []
     try {
         const parser = new DOMParser();
         var xhr = new XMLHttpRequest();
@@ -79,21 +79,24 @@ function get_parrainage(page) {
             if (xhr.status === 200) {
                 var responseXML = parser.parseFromString(xhr.responseText, "text/html");
                 const links_html = responseXML.getElementsByClassName('parrainage_bt visu');
-                for (const link of links_html) {
-                    links.push(link);
+                for (var link of links_html) {
+                    link = "" + link
+                    const link_split = link.split("/")
+                    const annonce_id = link_split[link_split.length-2];
+                    annonces.push(annonce_id);
                 }
             }
         };
         xhr.send()
-        for (const link of links) {
-            console.log("Link= " + link);
+        for (const annonce of annonces) {
+            console.log("Annonce ID= " + annonce);
         }
     }
     catch(err) {
         console.log("Error= " + err);
 
     }
-    return links;
+    return annonces;
 }
 
 

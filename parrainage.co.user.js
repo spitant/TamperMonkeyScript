@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     4.0.0
+// @version     4.0.1
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
@@ -26,13 +26,15 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+const annonceList = getAnnonce();
+
 /**
  * Set label count on added button
  * @param {int} count Current iteration
  */
 function setLabelButton(count){
     const btn = document.getElementById('myButton');
-    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
+    btn.textContent = 'Actualiser '+ count + '/' + annonceList.length;
 }
 
 
@@ -108,7 +110,7 @@ function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
     var tasks = ["offers/boost/", "vote/"];
-    for (const element of getAnnonce()) {
+    for (const element of annonceList) {
         for (const task of tasks) {
             console.log("Send https://parrainage.co/account/" + task + element.toString());
             let xhr = new XMLHttpRequest();

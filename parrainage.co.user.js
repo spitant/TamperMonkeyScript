@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     3.0.2
+// @version     4.0.0
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
@@ -41,10 +41,65 @@ function setLabelButton(count){
  * @return The list of annonces
  */
 function getAnnonce(){
-    const array = [79973, 79428, 79393, 79396, 79353, 79330, 79283, 79202, 79201, 79200, 79199, 79198, 79175, 79176, 79168, 78340, 74480, 74481, 74482, 74616, 74771, 74473, 74483, 74484, 74485, 74486, 74487, 74658, 74817, 74488, 74867, 75040, 74868, 74763, 74869, 74718, 75076, 75098, 75366, 75367, 74719, 74871, 75198, 75622, 75223, 76075, 75669, 75672, 74474, 76116, 76121, 75936, 76226, 76233, 74475, 76316, 76251, 76369, 76287, 76414, 76576, 76451, 76602, 76455, 76607, 76635, 74476, 76662, 74477, 76835, 76752, 76867, 74478, 74471, 74472, 77371, 74479, 77514];
+    var array = []
+    const max_page = 100;
+    var page;
+    for(page = 1; page <= max_page; page++) {
+        var array_list = getAnnoncePage(page);
+        if (array_list.length == 0){
+            break;
+        }
+        array = array.concat(array_list);
+    }
+    console.log("Array= " + array);
     const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
     return shuffled_array;
 }
+
+
+/**
+ * Get the list of annonces for one page
+ * @param {int} page Paage index
+ * @return The list of annonces
+ */
+function getAnnoncePage(page) {
+    var annonces = []
+    try {
+        const parser = new DOMParser();
+        var xhr = new XMLHttpRequest();
+        console.log("=================================");
+        console.log("Page = " + page);
+        console.log("=================================");
+        xhr.open("GET", "https://parrainage.co/account/offers?page="+ page, false);
+        xhr.onloadend = function(){
+            if (xhr.status === 200) {
+                var responseXML = parser.parseFromString(xhr.responseText, "text/html");
+                const links_html = responseXML.getElementsByClassName('btn');
+                for (var link of links_html) {
+                    link = "" + link
+                    const link_split = link.split("/")
+                    if (link_split[link_split.length-2] == "offers"){
+                        const annonce_id = link_split[link_split.length-1];
+                        if (annonce_id != "new"){
+                            annonces.push(annonce_id);
+                        }
+                    }
+
+                }
+            }
+        };
+        xhr.send()
+        for (const annonce of annonces) {
+            console.log("Annonce ID= " + annonce);
+        }
+    }
+    catch(err) {
+        console.log("Error= " + err);
+
+    }
+    return annonces;
+}
+
 
 /**
  * Handler for added button

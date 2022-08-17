@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      1.1.0
+// @version      2.0.0
 // @match        https://www.1parrainage.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -10,6 +10,7 @@
 // @updateURL    https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/1parrainage.user.js
 // @namespace    https://github.com/spitant/TamperMonkeyScript/
 // @grant        GM_addStyle
+// @require     https://raw.githubusercontent.com/eligrey/FileSaver.js/master/dist/FileSaver.min.js
 // ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and
@@ -27,6 +28,8 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
+const ignoreList = ["1501856", "1613457", "1618792"];
+const annonceList = getAnnonceList();
 /**
  * sleep
  * @param {int} milliseconds number of milliseconds to sleep
@@ -41,32 +44,37 @@ function sleep(milliseconds) {
  */
 function setLabelButton(count){
     const btn = document.getElementById('myButton');
-    btn.textContent = 'Actualiser '+ count + '/' + getAnnonce().length;
+    btn.textContent = 'Actualiser '+ count + '/' + annonceList.length;
 }
 
 /**
  * Get the list of annonces
  * @return The list of annonces
  */
-function getAnnonce(){
+function getAnnonceList(){
     var array = []
     const max_page = 10;
     var page;
     for(page = 1; page <= max_page; page++) {
-        var array_list = get_parrainage(page);
+        var array_list = getAnnonceListPage(page);
         if (array_list.length == 0){
             break;
         }
         array = array.concat(array_list);
     }
-    console.log("Array= " + array);
-    const shuffled_array = array.sort((a, b) => 0.5 - Math.random());
+    var filtered_array = array.filter(x => !ignoreList.includes(x));
+    const shuffled_array = filtered_array.sort((a, b) => 0.5 - Math.random());
+    console.log("Array= " + shuffled_array);
     return shuffled_array;
 }
 
 
-
-function get_parrainage(page) {
+/**
+ * Get the list of annonces for one page
+ * @param {int} page Page index
+ * @return The list of annonces
+ */
+function getAnnonceListPage(page) {
     var annonces = []
     try {
         const parser = new DOMParser();
@@ -135,28 +143,47 @@ function publier_parrainage(offer_id, code, presentation) {
 
 function delete_parrainage(parrainage_id) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/delete/"+ parrainage_id + "/", true);
+    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/delete/"+ parrainage_id + "/", false);
     xhr.send()
+}
+
+function get_parrainage(parrainage_id) {
+    var parrainage_info = new Map();
+    parrainage_info.set('parrainage_id', parrainage_id);
+    var xhr = new XMLHttpRequest();
+    const parser = new DOMParser();
+    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
+    xhr.onloadend = function(){
+        if (xhr.status === 200) {
+            var responseXML = parser.parseFromString(xhr.responseText, "text/html");
+            const offer_select = responseXML.getElementById('editparrainage_parrainage');
+            parrainage_info.set('offer_code', responseXML.getElementById('edit_parrainage_code').value);
+            parrainage_info.set('offer_presentation', responseXML.getElementById('edit_parrainage_presentation').value);
+            parrainage_info.set('offer_value', offer_select.options[offer_select.selectedIndex].value);
+        }
+    };
+    xhr.send()
+    return parrainage_info;
 }
 
 /**
  * Handler for added button
  */
 function ButtonClickAction (zEvent) {
-    var elements = getAnnonce();
     var count = 0;
     setLabelButton(count);
-    for (const element of elements) {
-        /*let action = element.getAttribute("href");
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://code-parrainage.net/" + action);
-        xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml");
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        console.log("Send " + action);
-        xhr.send();
+    var parrainage_infos = [];
+    for (const annonce_id of annonceList) {
+        var annonce_data = get_parrainage(annonce_id)
+        parrainage_infos.push(JSON.stringify(Object.fromEntries(annonce_data)));
+        delete_parrainage(annonce_id);
+        publier_parrainage(annonce_data.get('offer_value'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
         count++;
-        setLabelButton(count);*/
+        setLabelButton(count);
     }
+    console.log(parrainage_infos);
+    var blob = new Blob(parrainage_infos, {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "backup_parrainage.json");
 }
 
 //--- Style our newly added elements using CSS.

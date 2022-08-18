@@ -28,7 +28,7 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
-const ignoreList = ["1501856", "1613457", "1618792"];
+const ignoreList = ["1501856", "1613457"];
 const annonceList = getAnnonceList();
 /**
  * sleep

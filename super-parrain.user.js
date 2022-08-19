@@ -2,7 +2,7 @@
 // @name         super-parrain
 // @description  Super parrain refree all
 // @author       spitant
-// @version      0.0.1
+// @version      1.0.0
 // @match        https://www.super-parrain.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=super-parrain.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -29,13 +29,6 @@ document.getElementById ("myButton").addEventListener (
 );
 
 const annonceList = getAnnonceList();
-/**
- * sleep
- * @param {int} milliseconds number of milliseconds to sleep
- */
-function sleep(milliseconds) {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
 
 /**
  * Set label count on added button
@@ -46,6 +39,11 @@ function setLabelButton(count){
     btn.textContent = 'Actualiser '+ count + '/' + annonceList.length;
 }
 
+/**
+ * Remove username in link
+ * @param {str} link Link
+ * @return Link without username
+ */
 function removeUserName(link){
     const link_split = link.split("/");
     const user_name = link_split[link_split.length-1];
@@ -96,7 +94,7 @@ function publier_parrainage(parrainage_url, presentation) {
     xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
     xhr.setRequestHeader('Referer', parrainage_url);
     var data = encodeURIComponent("form[_token]") + "=" + encodeURIComponent(token);
-    data += "&" + encodeURIComponent("form[message]") + "=" + encodeURIComponent(presentation.replaceAll("<br>", ""));
+    data += "&" + encodeURIComponent("form[message]") + "=" + encodeURIComponent(presentation);
     xhr.send(data)
 }
 
@@ -138,9 +136,12 @@ function get_parrainage(parrainage_url) {
     xhr.onloadend = function(){
         if (xhr.status === 200) {
             var responseXML = parser.parseFromString(xhr.responseText, "text/html");
-            const presentation = responseXML.getElementsByClassName('c-parrain__message');
-            console.log("Type= " + presentation[0].innerHTML );
-            parrainage_info.set('offer_presentation', presentation[0].innerHTML);
+            const presentation_html = responseXML.getElementsByClassName('c-parrain__message');
+            var presentation = presentation_html[0].innerHTML.replaceAll("<br>", "");
+            presentation = presentation.replaceAll(/&amp;/g, '&');
+            presentation = presentation.replaceAll(/&amp;/g, '&');
+            presentation = presentation.replaceAll(/&amp;/g, '&');
+            parrainage_info.set('offer_presentation', presentation);
         }
     };
     xhr.send()

@@ -4,11 +4,12 @@
 // @author      spitant
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     4.0.1
+// @version     4.0.2
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @namespace   https://github.com/spitant/TamperMonkeyScript/
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=parrainage.co
 // ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and

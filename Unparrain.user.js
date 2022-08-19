@@ -4,10 +4,11 @@
 // @author      spitant
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     3.0.1
+// @version     3.0.2
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=unparrain.fr
 // @namespace   https://github.com/spitant/TamperMonkeyScript/
 // ==/UserScript==
 

@@ -4,11 +4,12 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     3.0.1
+// @version     3.0.2
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @namespace   https://github.com/spitant/TamperMonkeyScript/
+// @icon        https://www.google.com/s2/favicons?sz=64&domain=refairall.com
 // ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and

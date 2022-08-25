@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      2.0.1
+// @version      2.0.2
 // @match        https://www.1parrainage.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -172,15 +172,16 @@ function get_parrainage(parrainage_id) {
 function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
-    var parrainage_infos = [];
+    var parrainage_infos = ["[\n"];
     for (const annonce_id of annonceList) {
         var annonce_data = get_parrainage(annonce_id)
-        parrainage_infos.push(JSON.stringify(Object.fromEntries(annonce_data)));
+        parrainage_infos.push("\t" + JSON.stringify(Object.fromEntries(annonce_data)) + ",\n");
         delete_parrainage(annonce_id);
         publier_parrainage(annonce_data.get('offer_value'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
         count++;
         setLabelButton(count);
     }
+    parrainage_infos.push("]");
     console.log(parrainage_infos);
     var blob = new Blob(parrainage_infos, {type: "text/plain;charset=utf-8"});
     saveAs(blob, "backup_parrainage.json");
@@ -210,7 +211,3 @@ GM_addStyle ( `
 ` );
 
 setLabelButton(0);
-// Test
-//delete_parrainage(1578273);
-//publier_parrainage(100204, "https://bravospeed.onelink.me/hpFJ/e1cce352", "Je t'offre un ticket pour tenter de gagner 500 000 € sur Bravospeed. C'est une application de loterie 100% gratuite !\n\nEn t'inscrivant avec mon lien de parrainage, j'en profite aussi !\n\nC'est gagnant - gagnant.\n\nClique ici : https://bravospeed.onelink.me/hpFJ/e1cce352");
-

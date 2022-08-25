@@ -2,7 +2,7 @@
 // @name         super-parrain
 // @description  Super parrain refree all
 // @author       spitant
-// @version      1.0.0
+// @version      1.0.1
 // @match        https://www.super-parrain.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=super-parrain.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -154,15 +154,16 @@ function get_parrainage(parrainage_url) {
 function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
-    var parrainage_infos = [];
+    var parrainage_infos = ["[\n"];
     for (const annonce_id of annonceList) {
         var annonce_data = get_parrainage(annonce_id)
-        parrainage_infos.push(JSON.stringify(Object.fromEntries(annonce_data)));
+        parrainage_infos.push("\t" + JSON.stringify(Object.fromEntries(annonce_data)) + ",\n");
         delete_parrainage(annonce_data.get('parrainage_url'));
         publier_parrainage(annonce_data.get('parrainage_url'), annonce_data.get('offer_presentation'));
         count++;
         setLabelButton(count);
     }
+    parrainage_infos.push("]");
     console.log(parrainage_infos);
     var blob = new Blob(parrainage_infos, {type: "text/plain;charset=utf-8"});
     saveAs(blob, "backup_superparrain.json");

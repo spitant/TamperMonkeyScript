@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      2.0.3
+// @version      2.0.4
 // @match        https://www.1parrainage.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -174,7 +174,7 @@ function ButtonClickAction (zEvent) {
     setLabelButton(count);
     var parrainage_infos = ["[\n"];
     for (const annonce_id of annonceList) {
-        var annonce_data = get_parrainage(annonce_id)
+        var annonce_data = get_parrainage(annonce_id);
         parrainage_infos.push("\t" + JSON.stringify(Object.fromEntries(annonce_data)) + ",\n");
         delete_parrainage(annonce_id);
         publier_parrainage(annonce_data.get('offer_value'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
@@ -186,6 +186,23 @@ function ButtonClickAction (zEvent) {
     var blob = new Blob(parrainage_infos, {type: "text/plain;charset=utf-8"});
     saveAs(blob, "backup_parrainage.json");
 }
+
+
+/**
+ * Handler for added button
+ */
+/*const JSON_data = 'TODO'
+
+function ButtonClickAction (zEvent) {
+    var annonceList = JSON.parse(JSON_data);
+    var count = 0;
+    setLabelButton(count);
+    for (const annonce_data of annonceList) {
+        publier_parrainage(annonce_data.offer_value, annonce_data.offer_code, annonce_data.offer_presentation);
+        count++;
+        setLabelButton(count);
+    }
+}*/
 
 //--- Style our newly added elements using CSS.
 GM_addStyle ( `

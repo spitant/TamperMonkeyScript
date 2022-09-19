@@ -2,7 +2,7 @@
 // @name         super-parrain
 // @description  Super parrain refree all
 // @author       spitant
-// @version      1.0.1
+// @version      1.0.2
 // @match        https://www.super-parrain.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=super-parrain.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -55,7 +55,7 @@ function removeUserName(link){
  * @return The list of annonces
  */
 function getAnnonceList(){
-    var annonces = []
+    var annonces = [];
     try {
         const parser = new DOMParser();
         var xhr = new XMLHttpRequest();
@@ -73,7 +73,7 @@ function getAnnonceList(){
                 }
             }
         };
-        xhr.send()
+        xhr.send();
     }
     catch(err) {
         console.log("Error= " + err);
@@ -95,7 +95,7 @@ function publier_parrainage(parrainage_url, presentation) {
     xhr.setRequestHeader('Referer', parrainage_url);
     var data = encodeURIComponent("form[_token]") + "=" + encodeURIComponent(token);
     data += "&" + encodeURIComponent("form[message]") + "=" + encodeURIComponent(presentation);
-    xhr.send(data)
+    xhr.send(data);
 }
 
 function get_token(parrainage_url) {
@@ -110,7 +110,7 @@ function get_token(parrainage_url) {
             console.log("Type= " + token );
         }
     };
-    xhr.send()
+    xhr.send();
     return token;
 }
 
@@ -124,7 +124,7 @@ function delete_parrainage(parrainage_url) {
     xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
     xhr.setRequestHeader('Referer', parrainage_url);
     const data = encodeURIComponent("form[_token]") + "=" + encodeURIComponent(token);
-    xhr.send(data)
+    xhr.send(data);
 }
 
 function get_parrainage(parrainage_url) {
@@ -144,7 +144,7 @@ function get_parrainage(parrainage_url) {
             parrainage_info.set('offer_presentation', presentation);
         }
     };
-    xhr.send()
+    xhr.send();
     return parrainage_info;
 }
 

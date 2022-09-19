@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      2.0.4
+// @version      2.0.5
 // @match        https://www.1parrainage.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -88,8 +88,8 @@ function getAnnonceListPage(page) {
                 var responseXML = parser.parseFromString(xhr.responseText, "text/html");
                 const links_html = responseXML.getElementsByClassName('parrainage_bt visu');
                 for (var link of links_html) {
-                    link = "" + link
-                    const link_split = link.split("/")
+                    link = "" + link;
+                    const link_split = link.split("/");
                     const annonce_id = link_split[link_split.length-2];
                     annonces.push(annonce_id);
                 }
@@ -124,7 +124,7 @@ function post_parrainage(token, offer_id, code, presentation){
     data += "&" + encodeURIComponent("edit_parrainage[presentation]") + "=" + encodeURIComponent(presentation);
     data += "&" + encodeURIComponent("edit_message[save]") + "=" + encodeURIComponent("");
     data += "&" + encodeURIComponent("edit_parrainage[_token]") + "=" + encodeURIComponent(token);
-    xhr.send(data)
+    xhr.send(data);
 }
 
 function publier_parrainage(offer_id, code, presentation) {
@@ -144,7 +144,7 @@ function publier_parrainage(offer_id, code, presentation) {
 function delete_parrainage(parrainage_id) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/delete/"+ parrainage_id + "/", false);
-    xhr.send()
+    xhr.send();
 }
 
 function get_parrainage(parrainage_id) {
@@ -162,7 +162,7 @@ function get_parrainage(parrainage_id) {
             parrainage_info.set('offer_value', offer_select.options[offer_select.selectedIndex].value);
         }
     };
-    xhr.send()
+    xhr.send();
     return parrainage_info;
 }
 
@@ -191,7 +191,7 @@ function ButtonClickAction (zEvent) {
 /**
  * Handler for added button
  */
-/*const JSON_data = 'TODO'
+/*const JSON_data = 'TODO';
 
 function ButtonClickAction (zEvent) {
     var annonceList = JSON.parse(JSON_data);

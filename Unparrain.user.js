@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       http://www.unparrain.fr/compte/compte
 // @grant       GM_addStyle
-// @version     3.0.2
+// @version     3.0.3
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/Unparrain.user.js
@@ -59,7 +59,7 @@ function sleep(milliseconds) {
  * @return The list of annonces
  */
 function getAnnonce(){
-  var arr = []
+  var arr = [];
   var elements = document.getElementsByClassName("btn-group");
   for (const element of elements) {
       let action = element.getAttribute("action");

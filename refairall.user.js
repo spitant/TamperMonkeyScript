@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     3.0.2
+// @version     3.0.3
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
@@ -34,7 +34,7 @@ document.getElementById ("myButton").addEventListener (
 function getAnnonce(){
     const btn = document.getElementById('myButton');
     const elements = document.getElementsByClassName('announcementVisibility');
-    var array = []
+    var array = [];
     for (const element of elements) {
         array.push(element);
     }

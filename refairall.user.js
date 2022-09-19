@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://refairall.com/dashboard/annonces
 // @grant       GM_addStyle
-// @version     3.0.3
+// @version     3.0.4
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/refairall.user.js
@@ -52,14 +52,23 @@ function setLabelButton(count){
 }
 
 /**
+ * sleep
+ * @param {int} milliseconds number of milliseconds to sleep
+ */
+function sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+/**
  * Handler for added button
  */
-function ButtonClickAction (zEvent) {
+async function ButtonClickAction (zEvent) {
     var elements = getAnnonce();
     var count = 0;
     setLabelButton(count);
     for (const element of elements) {
         element.click();
+        sleep(100);
         element.click();
         count++;
         setLabelButton(count);

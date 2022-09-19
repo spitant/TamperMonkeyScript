@@ -4,7 +4,7 @@
 // @author      spitant
 // @match       https://parrainage.co/account/offers
 // @grant       GM_addStyle
-// @version     4.0.2
+// @version     4.0.3
 // @homepage    https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
 // @updateURL   https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/parrainage.co.user.js
@@ -44,7 +44,7 @@ function setLabelButton(count){
  * @return The list of annonces
  */
 function getAnnonce(){
-    var array = []
+    var array = [];
     const max_page = 100;
     var page;
     for(page = 1; page <= max_page; page++) {
@@ -66,7 +66,7 @@ function getAnnonce(){
  * @return The list of annonces
  */
 function getAnnoncePage(page) {
-    var annonces = []
+    var annonces = [];
     try {
         const parser = new DOMParser();
         var xhr = new XMLHttpRequest();
@@ -79,8 +79,8 @@ function getAnnoncePage(page) {
                 var responseXML = parser.parseFromString(xhr.responseText, "text/html");
                 const links_html = responseXML.getElementsByClassName('btn');
                 for (var link of links_html) {
-                    link = "" + link
-                    const link_split = link.split("/")
+                    link = "" + link;
+                    const link_split = link.split("/");
                     if (link_split[link_split.length-2] == "offers"){
                         const annonce_id = link_split[link_split.length-1];
                         if (annonce_id != "new"){
@@ -91,7 +91,7 @@ function getAnnoncePage(page) {
                 }
             }
         };
-        xhr.send()
+        xhr.send();
         for (const annonce of annonces) {
             console.log("Annonce ID= " + annonce);
         }

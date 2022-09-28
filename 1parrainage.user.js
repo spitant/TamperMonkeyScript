@@ -2,8 +2,8 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.0.0
-// @match        https://www.1parrainage.com/*
+// @version      3.0.1
+// @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
 // @downloadURL  https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/1parrainage.user.js

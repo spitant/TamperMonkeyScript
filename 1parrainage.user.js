@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      2.0.6
+// @version      3.0.0
 // @match        https://www.1parrainage.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -10,7 +10,6 @@
 // @updateURL    https://raw.githubusercontent.com/spitant/TamperMonkeyScript/main/1parrainage.user.js
 // @namespace    https://github.com/spitant/TamperMonkeyScript/
 // @grant        GM_addStyle
-// @require     https://raw.githubusercontent.com/eligrey/FileSaver.js/master/dist/FileSaver.min.js
 // ==/UserScript==
 
 /*--- Create a button in a container div.  It will be styled and
@@ -147,6 +146,25 @@ function delete_parrainage(parrainage_id) {
     xhr.send();
 }
 
+function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Referer', "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
+    xhr.setRequestHeader('Sec-Fetch-Dest', 'document');
+    xhr.setRequestHeader('Sec-Fetch-Mode', 'navigate');
+    xhr.setRequestHeader('Sec-Fetch-User', '?');
+    xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    var data = encodeURIComponent("editparrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
+    data += "&" + encodeURIComponent("edit_parrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
+    data += "&" + encodeURIComponent("edit_parrainage[code]") + "=" + encodeURIComponent(code);
+    data += "&" + encodeURIComponent("edit_parrainage[presentation]") + "=" + encodeURIComponent(presentation);
+    data += "&" + encodeURIComponent("edit_message[save]") + "=" + encodeURIComponent("");
+    data += "&" + encodeURIComponent("edit_parrainage[_token]") + "=" + encodeURIComponent(token);
+    xhr.send(data);
+}
+
 function get_parrainage(parrainage_id) {
     var parrainage_info = new Map();
     parrainage_info.set('parrainage_id', parrainage_id);
@@ -157,9 +175,11 @@ function get_parrainage(parrainage_id) {
         if (xhr.status === 200) {
             var responseXML = parser.parseFromString(xhr.responseText, "text/html");
             const offer_select = responseXML.getElementById('editparrainage_parrainage');
+            parrainage_info.set('offer_id', responseXML.getElementById('editparrainage_parrainage').value);
             parrainage_info.set('offer_code', responseXML.getElementById('edit_parrainage_code').value);
             parrainage_info.set('offer_presentation', responseXML.getElementById('edit_parrainage_presentation').value);
             parrainage_info.set('offer_value', offer_select.options[offer_select.selectedIndex].value);
+            parrainage_info.set('token', responseXML.getElementById('edit_parrainage__token').value);
         }
     };
     xhr.send();
@@ -172,19 +192,12 @@ function get_parrainage(parrainage_id) {
 function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
-    var parrainage_infos = ["[\n"];
     for (const annonce_id of annonceList) {
         var annonce_data = get_parrainage(annonce_id);
-        parrainage_infos.push("\t" + JSON.stringify(Object.fromEntries(annonce_data)) + ",\n");
-        delete_parrainage(annonce_id);
-        publier_parrainage(annonce_data.get('offer_value'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
+        edit_parrainage(annonce_id, annonce_data.get('token'), annonce_data.get('offer_id'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
         count++;
         setLabelButton(count);
     }
-    parrainage_infos.push("]");
-    console.log(parrainage_infos);
-    var blob = new Blob(parrainage_infos, {type: "text/plain;charset=utf-8"});
-    saveAs(blob, "backup_parrainage.json");
 }
 
 

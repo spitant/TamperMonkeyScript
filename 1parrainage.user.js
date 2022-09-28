@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.0.1
+// @version      3.0.2
 // @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -106,49 +106,9 @@ function getAnnonceListPage(page) {
     return annonces;
 }
 
-
-
-function post_parrainage(token, offer_id, code, presentation){
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/add/", true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Referer', 'https://www.1parrainage.com/espace_parrain/parrainages/add/');
-    xhr.setRequestHeader('Sec-Fetch-Dest', 'document');
-    xhr.setRequestHeader('Sec-Fetch-Mode', 'navigate');
-    xhr.setRequestHeader('Sec-Fetch-User', '?');
-    xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    var data = encodeURIComponent("edit_parrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
-    data += "&" + encodeURIComponent("edit_parrainage[code]") + "=" + encodeURIComponent(code);
-    data += "&" + encodeURIComponent("edit_parrainage[presentation]") + "=" + encodeURIComponent(presentation);
-    data += "&" + encodeURIComponent("edit_message[save]") + "=" + encodeURIComponent("");
-    data += "&" + encodeURIComponent("edit_parrainage[_token]") + "=" + encodeURIComponent(token);
-    xhr.send(data);
-}
-
-function publier_parrainage(offer_id, code, presentation) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/add/", true);
-    xhr.responseType = "document";
-    xhr.onload = function(){
-        const input = xhr.responseXML.getElementById('edit_parrainage__token');
-        console.log("Token= " + input.value);
-        const token = input.value;
-        post_parrainage(token, offer_id, code, presentation);
-    };
-    xhr.send()
-}
-
-
-function delete_parrainage(parrainage_id) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/delete/"+ parrainage_id + "/", false);
-    xhr.send();
-}
-
 function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", true);
+    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Referer', "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
     xhr.setRequestHeader('Sec-Fetch-Dest', 'document');
@@ -199,23 +159,6 @@ function ButtonClickAction (zEvent) {
         setLabelButton(count);
     }
 }
-
-
-/**
- * Handler for added button
- */
-/*const JSON_data = 'TODO';
-
-function ButtonClickAction (zEvent) {
-    var annonceList = JSON.parse(JSON_data);
-    var count = 0;
-    setLabelButton(count);
-    for (const annonce_data of annonceList) {
-        publier_parrainage(annonce_data.offer_value, annonce_data.offer_code, annonce_data.offer_presentation);
-        count++;
-        setLabelButton(count);
-    }
-}*/
 
 //--- Style our newly added elements using CSS.
 GM_addStyle ( `

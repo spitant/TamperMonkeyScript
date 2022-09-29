@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.0.2
+// @version      3.1.0
 // @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -11,6 +11,8 @@
 // @namespace    https://github.com/spitant/TamperMonkeyScript/
 // @grant        GM_addStyle
 // ==/UserScript==
+
+ "use strict";
 
 /*--- Create a button in a container div.  It will be styled and
     positioned with CSS.
@@ -29,13 +31,6 @@ document.getElementById ("myButton").addEventListener (
 
 const ignoreList = ["1501856"];
 const annonceList = getAnnonceList();
-/**
- * sleep
- * @param {int} milliseconds number of milliseconds to sleep
- */
-function sleep(milliseconds) {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
 
 /**
  * Set label count on added button
@@ -44,6 +39,14 @@ function sleep(milliseconds) {
 function setLabelButton(count){
     const btn = document.getElementById('myButton');
     btn.textContent = 'Actualiser '+ count + '/' + annonceList.length;
+}
+
+/**
+ * sleep
+ * @param {int} milliseconds number of milliseconds to sleep
+ */
+function sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 /**
@@ -106,14 +109,14 @@ function getAnnonceListPage(page) {
     return annonces;
 }
 
+/**
+ * Edit parrainage
+ */
 function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
+    console.log("Edit Annonce ID= " + parrainage_id);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Referer', "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
-    xhr.setRequestHeader('Sec-Fetch-Dest', 'document');
-    xhr.setRequestHeader('Sec-Fetch-Mode', 'navigate');
-    xhr.setRequestHeader('Sec-Fetch-User', '?');
     xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     var data = encodeURIComponent("editparrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
@@ -125,9 +128,10 @@ function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
     xhr.send(data);
 }
 
-function get_parrainage(parrainage_id) {
-    var parrainage_info = new Map();
-    parrainage_info.set('parrainage_id', parrainage_id);
+/**
+ * Get parrainage
+ */
+function get_and_edit_parrainage(parrainage_id) {
     var xhr = new XMLHttpRequest();
     const parser = new DOMParser();
     xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
@@ -135,15 +139,14 @@ function get_parrainage(parrainage_id) {
         if (xhr.status === 200) {
             var responseXML = parser.parseFromString(xhr.responseText, "text/html");
             const offer_select = responseXML.getElementById('editparrainage_parrainage');
-            parrainage_info.set('offer_id', responseXML.getElementById('editparrainage_parrainage').value);
-            parrainage_info.set('offer_code', responseXML.getElementById('edit_parrainage_code').value);
-            parrainage_info.set('offer_presentation', responseXML.getElementById('edit_parrainage_presentation').value);
-            parrainage_info.set('offer_value', offer_select.options[offer_select.selectedIndex].value);
-            parrainage_info.set('token', responseXML.getElementById('edit_parrainage__token').value);
+            const offer_id = responseXML.getElementById('editparrainage_parrainage').value;
+            const code = responseXML.getElementById('edit_parrainage_code').value;
+            const presentation = responseXML.getElementById('edit_parrainage_presentation').value;
+            const token = responseXML.getElementById('edit_parrainage__token').value;
+            edit_parrainage(parrainage_id, token, offer_id, code, presentation);
         }
     };
     xhr.send();
-    return parrainage_info;
 }
 
 /**
@@ -153,10 +156,10 @@ function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
     for (const annonce_id of annonceList) {
-        var annonce_data = get_parrainage(annonce_id);
-        edit_parrainage(annonce_id, annonce_data.get('token'), annonce_data.get('offer_id'), annonce_data.get('offer_code'), annonce_data.get('offer_presentation'));
+        get_and_edit_parrainage(annonce_id);
         count++;
         setLabelButton(count);
+        sleep(500);
     }
 }
 

@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.1.0
+// @version      3.1.1
 // @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -115,7 +115,7 @@ function getAnnonceListPage(page) {
 function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
     console.log("Edit Annonce ID= " + parrainage_id);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
+    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -134,7 +134,7 @@ function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
 function get_and_edit_parrainage(parrainage_id) {
     var xhr = new XMLHttpRequest();
     const parser = new DOMParser();
-    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
+    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
     xhr.onloadend = function(){
         if (xhr.status === 200) {
             var responseXML = parser.parseFromString(xhr.responseText, "text/html");

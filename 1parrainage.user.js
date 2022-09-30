@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.1.1
+// @version      3.1.3
 // @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -59,7 +59,7 @@ function getAnnonceList(){
     var page;
     for(page = 1; page <= max_page; page++) {
         var array_list = getAnnonceListPage(page);
-        if (array_list.length == 0){
+        if (array_list.length === 0){
             break;
         }
         array = array.concat(array_list);
@@ -115,10 +115,9 @@ function getAnnonceListPage(page) {
 function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
     console.log("Edit Annonce ID= " + parrainage_id);
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
+    xhr.open("POST", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Upgrade-Insecure-Requests', '1');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     var data = encodeURIComponent("editparrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
     data += "&" + encodeURIComponent("edit_parrainage[parrainage]") + "=" + encodeURIComponent(offer_id);
     data += "&" + encodeURIComponent("edit_parrainage[code]") + "=" + encodeURIComponent(code);
@@ -133,10 +132,10 @@ function edit_parrainage(parrainage_id, token, offer_id, code, presentation){
  */
 function get_and_edit_parrainage(parrainage_id) {
     var xhr = new XMLHttpRequest();
-    const parser = new DOMParser();
-    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/");
+    xhr.open("GET", "https://www.1parrainage.com/espace_parrain/parrainages/edit/"+ parrainage_id + "/", false);
     xhr.onloadend = function(){
         if (xhr.status === 200) {
+            const parser = new DOMParser();
             var responseXML = parser.parseFromString(xhr.responseText, "text/html");
             const offer_select = responseXML.getElementById('editparrainage_parrainage');
             const offer_id = responseXML.getElementById('editparrainage_parrainage').value;
@@ -152,7 +151,7 @@ function get_and_edit_parrainage(parrainage_id) {
 /**
  * Handler for added button
  */
-function ButtonClickAction (zEvent) {
+async function ButtonClickAction (zEvent) {
     var count = 0;
     setLabelButton(count);
     for (const annonce_id of annonceList) {

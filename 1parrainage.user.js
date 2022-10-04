@@ -2,7 +2,7 @@
 // @name         1parrainage
 // @description  Code parrain refree all
 // @author       spitant
-// @version      3.1.3
+// @version      3.1.4
 // @match        https://www.1parrainage.com/espace_parrain/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1parrainage.com
 // @homepage     https://github.com/spitant/TamperMonkeyScript/
@@ -29,7 +29,7 @@ document.getElementById ("myButton").addEventListener (
     "click", ButtonClickAction, false
 );
 
-const ignoreList = ["1501856"];
+const ignoreList = [];
 const annonceList = getAnnonceList();
 
 /**
